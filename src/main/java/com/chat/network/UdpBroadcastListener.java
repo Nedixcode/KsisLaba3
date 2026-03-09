@@ -16,11 +16,13 @@ public class UdpBroadcastListener implements Runnable {
             ds.setReuseAddress(true);
             ds.bind(new InetSocketAddress(node.getLocalIp(), port));
             byte[] buf = new byte[1024];
+
             while (true) {
                 DatagramPacket dp = new DatagramPacket(buf, buf.length);
                 ds.receive(dp);
                 String data = new String(dp.getData(), 0, dp.getLength());
                 String[] parts = data.split(":");
+
                 if (parts.length == 3) {
                     String name = parts[0], ip = parts[1];
                     int tPort = Integer.parseInt(parts[2]);

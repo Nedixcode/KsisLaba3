@@ -1,4 +1,4 @@
-package com.chat.core;
+package com.chat.message;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,12 +21,6 @@ public class Message implements Serializable {
         this.timestamp = LocalDateTime.now();
     }
 
-    public MessageType getType() { return type; }
-    public String getContent() { return content; }
-    public String getSenderName() { return senderName; }
-    public String getSenderIp() { return senderIp; }
-    public int getSenderTcpPort() { return senderTcpPort; }
-
     public String getFormattedMessage() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timeStr = timestamp.format(formatter);
@@ -39,5 +33,25 @@ public class Message implements Serializable {
             case HISTORY_RESPONSE -> String.format("[%s] [History received from %s (%s)]", timeStr, senderName, senderIp);
             default -> String.format("[%s] %s", timeStr, content);
         };
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public String getSenderIp() {
+        return senderIp;
+    }
+
+    public int getSenderTcpPort() {
+        return senderTcpPort;
     }
 }

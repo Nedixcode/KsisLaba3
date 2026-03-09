@@ -4,7 +4,7 @@ import com.chat.core.PeerNode;
 import com.chat.ui.ConsoleUI;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         String name = "User"; String ip = "127.0.0.1";
         int tcpPort = 9000; int udpPort = 8888;
 

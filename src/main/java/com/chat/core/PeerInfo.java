@@ -18,11 +18,31 @@ public class PeerInfo {
         this.out.flush();
     }
 
-    public String getKey() { return ip + ":" + port; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getIp() { return ip; }
-    public int getPort() { return port; }
-    public void setPort(int port) { this.port = port; }
-    public ObjectOutputStream getOut() { return out; }
+    public String getKey() {
+        return ip + ":" + port;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
 }

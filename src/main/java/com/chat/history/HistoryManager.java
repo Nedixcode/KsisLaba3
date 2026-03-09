@@ -1,11 +1,15 @@
-package com.chat.utils;
+package com.chat.history;
 
-import com.chat.core.Message;
+import com.chat.message.Message;
 import java.util.*;
 
 public class HistoryManager {
     private final List<Message> history = Collections.synchronizedList(new ArrayList<>());
-    public void add(Message msg) { history.add(msg); }
+
+    public void add(Message msg) {
+        history.add(msg);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

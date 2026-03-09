@@ -22,6 +22,9 @@ public class ConsoleUI implements PeerNode.MessageListener {
             }
         }
     }
+
     @Override
-    public void onMessage(String msg) { System.out.println(msg); }
+    public void onMessage(String msg) {
+        System.out.println(msg);
+    }
 }
