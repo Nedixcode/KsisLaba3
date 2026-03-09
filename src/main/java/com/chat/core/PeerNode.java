@@ -35,7 +35,7 @@ public class PeerNode {
             ds.setBroadcast(true);
             String data = name + ":" + localIp + ":" + tcpPort;
             byte[] buf = data.getBytes();
-            ds.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("255.255.255.255"), udpPort));
+            ds.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.255.255.255"), udpPort));
         } catch (Exception ignored) {}
     }
 
@@ -97,21 +97,32 @@ public class PeerNode {
             listener.onMessage("\n***********************************************************");
             listener.onMessage(String.format("            History loaded from %s (%s)              ", fromName, fromIp));
             listener.onMessage("------------------------------------------------------------");
-
-            if (historyText != null && !historyText.isEmpty()) {
-                String[] lines = historyText.split("\\r?\\n");
-                for (String line : lines) {
-                    if (!line.trim().isEmpty()) {
-                        listener.onMessage(line);
-                    }
-                }
-            } else {
-                listener.onMessage("  [Empty history]                                          ");
-            }
-
-            listener.onMessage("***********************************************************\n");
         }
+
+        if (historyText != null && !historyText.isEmpty()) {
+            String[] lines = historyText.split("\\r?\\n");
+            for (String line : lines) {
+                if (!line.trim().isEmpty()) {
+
+                    Message m = new Message(
+                            MessageType.CHAT_MESSAGE,
+                            line,
+                            fromName,
+                            fromIp,
+                            0
+                    );
+                    historyManager.add(m);
+
+                    if (listener != null) listener.onMessage(line);
+                }
+            }
+        } else {
+            if (listener != null) listener.onMessage("  [Empty history]                                          ");
+        }
+
+        if (listener != null) listener.onMessage("***********************************************************\n");
     }
+
 
     public void addMsg(Message m) {
         historyManager.add(m); if (listener != null) listener.onMessage(m.getFormattedMessage());

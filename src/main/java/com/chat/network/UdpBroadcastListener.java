@@ -14,7 +14,7 @@ public class UdpBroadcastListener implements Runnable {
         try {
             DatagramSocket ds = new DatagramSocket(null);
             ds.setReuseAddress(true);
-            ds.bind(new InetSocketAddress("0.0.0.0", port));
+            ds.bind(new InetSocketAddress(node.getLocalIp(), port));
             byte[] buf = new byte[1024];
             while (true) {
                 DatagramPacket dp = new DatagramPacket(buf, buf.length);
@@ -24,7 +24,7 @@ public class UdpBroadcastListener implements Runnable {
                 if (parts.length == 3) {
                     String name = parts[0], ip = parts[1];
                     int tPort = Integer.parseInt(parts[2]);
-                    // Не подключаемся к самим себе
+
                     if (!ip.equals(node.getLocalIp()) || tPort != node.getTcpPort()) {
                         node.connectToPeer(ip, tPort, name);
                     }
