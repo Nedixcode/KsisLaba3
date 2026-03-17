@@ -1,6 +1,8 @@
-package com.chat.network;
+package chat.network;
 
-import com.chat.core.*;
+import chat.core.PeerInfo;
+import chat.core.PeerNode;
+import chat.core.*;
 import java.net.*;
 
 public class TcpServer implements Runnable {

@@ -1,9 +1,11 @@
-package com.chat.core;
+package chat.core;
 
-import com.chat.message.Message;
-import com.chat.message.MessageType;
-import com.chat.network.*;
-import com.chat.history.HistoryManager;
+import chat.message.Message;
+import chat.message.MessageType;
+import chat.network.PeerConnectionHandler;
+import chat.network.TcpServer;
+import chat.network.UdpBroadcastListener;
+import chat.history.HistoryManager;
 import java.net.*;
 import java.util.concurrent.*;
 

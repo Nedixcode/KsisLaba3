@@ -1,7 +1,9 @@
-package com.chat.network;
+package chat.network;
 
-import com.chat.core.*;
-import com.chat.message.Message;
+import chat.core.PeerInfo;
+import chat.core.PeerNode;
+import chat.core.*;
+import chat.message.Message;
 import java.io.*;
 import java.net.Socket;
 

@@ -1,4 +1,4 @@
-package com.chat.core;
+package chat.core;
 
 import java.io.*;
 import java.net.Socket;

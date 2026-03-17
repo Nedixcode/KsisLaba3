@@ -1,6 +1,6 @@
-package com.chat.network;
+package chat.network;
 
-import com.chat.core.PeerNode;
+import chat.core.PeerNode;
 import java.net.*;
 
 public class UdpBroadcastListener implements Runnable {

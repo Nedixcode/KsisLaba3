@@ -1,6 +1,6 @@
-package com.chat.history;
+package chat.history;
 
-import com.chat.message.Message;
+import chat.message.Message;
 import java.util.*;
 
 public class HistoryManager {

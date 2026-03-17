@@ -19,14 +19,13 @@
     </properties>
 
     <dependencies>
-        <!-- SLF4J Simple для логирования (совместим с Java 21) -->
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.9</version>
         </dependency>
 
-        <!-- JUnit для тестирования -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -38,7 +37,7 @@
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
-            <!-- Compiler plugin для Java 21 -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -52,7 +51,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Jar plugin для создания исполняемого jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -60,7 +58,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.chat.Main</mainClass>
+                            <mainClass>chat.Main</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
@@ -68,7 +66,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Assembly plugin для создания jar со всеми зависимостями -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -79,7 +76,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.chat.Main</mainClass>
+                            <mainClass>chat.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -94,7 +91,6 @@
                 </executions>
             </plugin>
 
-            <!-- Surefire plugin для тестов JUnit 5 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

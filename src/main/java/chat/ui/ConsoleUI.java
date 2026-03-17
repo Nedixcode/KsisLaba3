@@ -1,6 +1,6 @@
-package com.chat.ui;
+package chat.ui;
 
-import com.chat.core.PeerNode;
+import chat.core.PeerNode;
 import java.util.Scanner;
 
 public class ConsoleUI implements PeerNode.MessageListener {

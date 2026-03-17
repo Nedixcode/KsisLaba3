@@ -1,4 +1,4 @@
-package com.chat.message;
+package chat.message;
 
 public enum MessageType {
     CHAT_MESSAGE, NAME_TRANSFER, PEER_CONNECTED, PEER_DISCONNECTED,

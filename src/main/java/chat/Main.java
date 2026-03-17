@@ -1,7 +1,7 @@
-package com.chat;
+package chat;
 
-import com.chat.core.PeerNode;
-import com.chat.ui.ConsoleUI;
+import chat.core.PeerNode;
+import chat.ui.ConsoleUI;
 import java.net.ServerSocket;
 import java.net.InetSocketAddress;
 
