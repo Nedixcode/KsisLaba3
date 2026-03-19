@@ -18,7 +18,7 @@ public class ConsoleUI implements PeerNode.MessageListener {
             if (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 if (line.equalsIgnoreCase("/exit") || line.equalsIgnoreCase("/quit")) System.exit(0);
-                if (!line.isEmpty()) node.broadcast(line);
+                if (!line.isEmpty()) node.sendChatMessage(line);
             }
         }
     }

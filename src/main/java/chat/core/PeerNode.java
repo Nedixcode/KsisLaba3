@@ -6,6 +6,7 @@ import chat.network.PeerConnectionHandler;
 import chat.network.TcpServer;
 import chat.network.UdpBroadcastListener;
 import chat.history.HistoryManager;
+
 import java.net.*;
 import java.util.concurrent.*;
 
@@ -25,7 +26,10 @@ public class PeerNode {
     }
 
     public PeerNode(String name, String localIp, int udpPort, int tcpPort) {
-        this.name = name; this.localIp = localIp; this.udpPort = udpPort; this.tcpPort = tcpPort;
+        this.name = name;
+        this.localIp = localIp;
+        this.udpPort = udpPort;
+        this.tcpPort = tcpPort;
     }
 
     public void setListener(MessageListener listener) {
@@ -39,26 +43,30 @@ public class PeerNode {
     }
 
     public void sendDiscovery() {
-        try (DatagramSocket ds = new DatagramSocket()) {
+        try (DatagramSocket ds = new DatagramSocket(new InetSocketAddress(localIp, 0))) {
             ds.setBroadcast(true);
             String data = name + ":" + localIp + ":" + tcpPort;
             byte[] buf = data.getBytes();
-            ds.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.255.255.255"), udpPort));
-        } catch (Exception ignored) {}
+            ds.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("255.255.255.255"), udpPort));
+        } catch (Exception e) {}
     }
 
     public synchronized void connectToPeer(String ip, int port, String pName) {
         String key = ip + ":" + port;
-        if (peers.containsKey(key)) return;
+        if (peers.containsKey(key)) {
+            return;
+        }
         try {
-            Socket s = new Socket(ip, port);
+            Socket s = new Socket();
+            s.bind(new InetSocketAddress(localIp, 0));
+            s.connect(new InetSocketAddress(ip, port), 2000);
             PeerInfo p = new PeerInfo(pName, ip, port);
             p.setSocket(s);
             peers.put(key, p);
             executor.execute(new PeerConnectionHandler(this, s, p));
             sendMessage(p, new Message(MessageType.NAME_TRANSFER, name, name, localIp, tcpPort));
             onPeerConnected(p);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {}
     }
 
     public void onPeerIdentified(PeerInfo p, Message msg) {
@@ -71,7 +79,7 @@ public class PeerNode {
         }
     }
 
-    public void broadcast(String text) {
+    public void sendChatMessage(String text) {
         Message msg = new Message(MessageType.CHAT_MESSAGE, text, name, localIp, tcpPort);
         historyManager.add(msg);
         if (listener != null) {
@@ -82,7 +90,8 @@ public class PeerNode {
 
     public void sendMessage(PeerInfo p, Message m) {
         try {
-            p.getOut().writeObject(m); p.getOut().flush();
+            p.getOut().writeObject(m);
+            p.getOut().flush();
         } catch (Exception ignored) {}
     }
 
@@ -139,9 +148,9 @@ public class PeerNode {
         if (listener != null) listener.onMessage("***********************************************************\n");
     }
 
-
     public void addMsg(Message m) {
-        historyManager.add(m); if (listener != null) listener.onMessage(m.getFormattedMessage());
+        historyManager.add(m);
+        if (listener != null) listener.onMessage(m.getFormattedMessage());
     }
 
     public String getLocalIp() {

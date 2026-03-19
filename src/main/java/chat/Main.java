@@ -16,6 +16,7 @@ public class Main {
             if (arg.startsWith("--name=")) name = arg.substring(7);
             if (arg.startsWith("--ip=")) ip = arg.substring(5);
             if (arg.startsWith("--tcp-port=")) tcpPort = Integer.parseInt(arg.substring(11));
+            if (arg.startsWith("--udp-port=")) udpPort = Integer.parseInt(arg.substring(11));
         }
 
         if (!isPortAvailable(ip, tcpPort)) {
